@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">SecuredPlayerTestApp</string>
+    <string name="btnPlayRtp">Play RTP</string>
+    <string name="btnPlayHls">Play HLS</string>
+    <string name="btnPlayVod">Play VOD</string>
+    <string name="btnPlayMedia">Play MEDIA</string>
+    <string name="btnSeek">Seek</string>
+    <string name="btnStop">Stop</string>
+    <string name="btnMove">Move</string>
+    <string name="btnResize">Resize</string>
+    <string name="btnGetState">State</string>
+    <string name="btnGetAvailableLanguages">Available languages</string>
+    <string name="btnGetCurrentLanguage">Current language</string>
+    <string name="btnSetCurrentLanguage">Set language</string>
+    <string name="btnUnlockMorality">Unlock Morality</string>
+    <string name="btnShowSubtitles">Show Subtitles</string>
+    <string name="txtInfo"></string>
+    <string name="txtCallbackState"></string>
+    <string name="btnGetAvailableSubtitles">getAvailableSubtitles</string>
+    <string name="btnGetCurrentSubtitle">getCurrentSubtitle</string>
+    <string name="btnSetCurrentSubtitle">setCurrentSubtitle</string>
+    <string name="btnGetSpeed">getSpeed</string>
+    <string name="btnSetSpeed">setSpeed</string>
+    <string name="btnGetCurrentPosition">getCurrentPosition</string>
+    <string name="btnGetDuration">getDuration</string>
+    <string name="btnGetUniverse">getUniverse</string>
+    <string name="btnSetUniverse">setUniverse</string>
+</resources>
