@@ -4,7 +4,10 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -18,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 import java.util.Random;
 
 import fr.bouyguestelecom.tv.capability.ICapability;
@@ -37,17 +41,7 @@ import fr.bouyguestelecom.tv.ISecuredPlayer;
 
 public class OpenApiTestAppActivity extends ActionBarActivity {
 
-    private static final String TAG = "OpenApiTestAppActivity";
-
-    private boolean mBound = false;
-    private IPlayerManager mPlayerManager;
-    private ICAS mCAS;
-    private ICapability mCapability;
-    private IPlayer mPlayer;
-    private IPlayer mPlayer1;
-    private GraphicsLayerDialog mGraphicsLayerDialog;
-
-    public static class Channel {
+    public class Channel {
         private String name;
         private String url;
 
@@ -60,6 +54,18 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
         public String getUrl() {return url;}
 
     };
+
+    private static final String TAG = "OpenApiTestAppActivity";
+
+    private static final int SEEK_JUMP_SEC = 30;
+
+    private boolean mBound = false;
+    private IPlayerManager mPlayerManager;
+    private ICAS mCAS;
+    private ICapability mCapability;
+    private IPlayer mPlayer;
+    private IPlayer mPlayer1;
+    private GraphicsLayerDialog mGraphicsLayerDialog;
 
     public static class MyHandler extends Handler {
         private final WeakReference<OpenApiTestAppActivity> mActivity;
@@ -110,6 +116,7 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
     private Button btnGetDuration;
     private Button btnGetUniverse;
     private Button btnSetUniverse;
+    private Button btnGetPlaneSize;
 
     public TextView getTxtInfo() {
         return txtInfo;
@@ -124,6 +131,7 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
 
     private Subtitle[] availableSubtitlesArray = null;
     private int currentSubtitleIndex = 0;
+     int callbackTest1Counter;
 
     private boolean resized = false;
     private boolean moved = false;
@@ -158,8 +166,10 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
                     "/mnt/media/usb.MyUsb0/movieSample2.mkv" ,
             };
 
-    private int mSpeed[] = {1, 2, 4, 8, 16, 32, 64, 128};
+    private int mSpeed[] = {1, 2, 4, 8, 16, 32, -32, -16, -8, -4, -2, -1, 0};
     private int mSpeedIndex = 0;
+
+    int cnt = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,6 +207,7 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
         btnGetDuration = (Button) findViewById(R.id.btnGetDuration);
         btnGetUniverse = (Button) findViewById(R.id.btnGetUniverse);
         btnSetUniverse = (Button) findViewById(R.id.btnSetUniverse);
+        btnGetPlaneSize = (Button) findViewById(R.id.btnGetPlaneSize);
 
         txtInfo = (TextView) findViewById(R.id.txtInfo);
         txtCallbackState = (TextView) findViewById(R.id.txtCallbackState);
@@ -208,11 +219,15 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
         btnPlayRtp.setFocusableInTouchMode(true);
         btnPlayRtp.requestFocus();
 
+        callbackTest1Counter = 0;
+
+
         btnPlayRtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
                     if (mBound) {
+                        Log.d(TAG, "play rtp");
 
                         Channel channel = rtpStreams[rtpStreamsCounter];
 
@@ -273,8 +288,9 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
                     if (mBound) {
                         Log.d(TAG, "play vod (Url : " + vodStreams[vodStreamsCounter] + ")");
                         PlayerErrorCode result = mPlayer.play(vodStreams[vodStreamsCounter],0);
-                        vodStreamsCounter = (++vodStreamsCounter) % vodStreams.length;
                         txtInfo.setText("Play: "+printErrorCode(result));
+                        vodStreamsCounter = (++vodStreamsCounter) % vodStreams.length;
+
                         btnShowSubtitles.setEnabled(false);
                         currentSubtitleIndex = 0;
                     } else {
@@ -294,8 +310,9 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
                     if (mBound) {
                         Log.d(TAG, "play media (Url : " + fileStreams[fileStreamsCounter] + ")");
                         PlayerErrorCode result = mPlayer.play(fileStreams[fileStreamsCounter],0);
-                        fileStreamsCounter = (++fileStreamsCounter) % fileStreams.length;
                         txtInfo.setText("Play: "+ printErrorCode(result));
+                        fileStreamsCounter = (++fileStreamsCounter) % fileStreams.length;
+
                         btnShowSubtitles.setEnabled(false);
                         currentSubtitleIndex = 0;
                     } else {
@@ -313,8 +330,11 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
             public void onClick(View v) {
                 try {
                     if (mBound) {
-                        Log.d(TAG, "seek");
-                        PlayerErrorCode result = mPlayer.seek(31);
+                        int seekPos = mPlayer.getCurrentPosition() + SEEK_JUMP_SEC;
+
+                        Log.d(TAG, "[seek][duration=" + mPlayer.getDuration() + "][current_position=" + mPlayer.getCurrentPosition() + "][seek_position=" + seekPos + "]");
+
+                        PlayerErrorCode result = mPlayer.seek(seekPos);
                         txtInfo.setText("Seek: "+printErrorCode(result));
                     } else {
                         Log.d(TAG, "Not bound to OpenApi in seek");
@@ -427,9 +447,9 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
                         if (availableLanguages != null) {
                             for (int i = 0; i < availableLanguages.length; i++) {
                                 if (i < availableLanguages.length - 1) {
-                                    availableLanguagesString += String.valueOf(availableLanguages[i].getIndex() + 1) + " " + availableLanguages[i].getCode() + ", ";
+                                    availableLanguagesString += String.valueOf(availableLanguages[i].getIndex() + 1) + "/" + availableLanguages[i].getCode() + "/" + availableLanguages[i].getDescription() + "; ";
                                 } else {
-                                    availableLanguagesString += String.valueOf(availableLanguages[i].getIndex() + 1) + " " + availableLanguages[i].getCode();
+                                    availableLanguagesString += String.valueOf(availableLanguages[i].getIndex() + 1) + "/" + availableLanguages[i].getCode() + "/" + availableLanguages[i].getDescription();
                                 }
                             }
                         } else {
@@ -455,7 +475,7 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
                         AudioLanguage currentLanguage = mPlayer.getCurrentLanguage();
                         String currentLanguageString = "Current language: ";
                         if (currentLanguageString != null) {
-                            currentLanguageString += String.valueOf(currentLanguage.getIndex() + 1) + " " + currentLanguage.getCode();
+                            currentLanguageString += String.valueOf(currentLanguage.getIndex() + 1) + "/" + currentLanguage.getCode() + "/" + currentLanguage.getDescription();
                         } else {
                             currentLanguageString += "None";
                         }
@@ -492,7 +512,7 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
                             }
                             PlayerErrorCode result = mPlayer.setCurrentLanguage(nextLanguage);
                             if (result == PlayerErrorCode.PLAYER_NO_ERROR) {
-                                currentLanguageString += String.valueOf(nextLanguage.getIndex() + 1) + " " + nextLanguage.getCode();
+                                currentLanguageString += String.valueOf(nextLanguage.getIndex() + 1) + "/" + nextLanguage.getCode() + "/" + nextLanguage.getDescription();
                             } else {
                                 currentLanguageString += printErrorCode(result);
                             }
@@ -538,9 +558,10 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
                         String availableSubtitlesString = "Available: ";
                         if (availableSubtitles != null && availableSubtitles.length != 0) {
                             for (int i = 0; i < availableSubtitles.length; i++) {
-                                availableSubtitlesString += availableSubtitles[i].getDescription();
                                 if (i < availableSubtitles.length - 1) {
-                                    availableSubtitlesString += ", ";
+                                    availableSubtitlesString += String.valueOf(availableSubtitles[i].getIndex() + 1) + "/" + availableSubtitles[i].getCode() + "/" + availableSubtitles[i].getDescription() + "; ";
+                                } else {
+                                    availableSubtitlesString += String.valueOf(availableSubtitles[i].getIndex() + 1) + "/" + availableSubtitles[i].getCode() + "/" + availableSubtitles[i].getDescription();
                                 }
                             }
                         } else {
@@ -566,7 +587,7 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
                         Subtitle currentSubtitle = mPlayer.getCurrentSubtitle();
                         String currentSubtitleString = "Current language: ";
                         if (currentSubtitle != null) {
-                            currentSubtitleString += currentSubtitle.getDescription();
+                            currentSubtitleString += String.valueOf(currentSubtitle.getIndex() + 1) + "/" + currentSubtitle.getDescription();
                         } else {
                             currentSubtitleString += "None";
                         }
@@ -587,12 +608,15 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
                 try {
                     if (mBound) {
                         Log.d(TAG, "setCurrentSubtitle");
+                        //create dialog (and surface)
+                        mGraphicsLayerDialog = new GraphicsLayerDialog(OpenApiTestAppActivity.this,mPlayer,mHandler); //GraphicsLayerDialog.LayerType.SUBTITLE);
+
                         availableSubtitlesArray = mPlayer.getAvailableSubtitles();
                         String setCurrentLanguageString = "Current language set at: ";
                         if (availableSubtitlesArray != null) {
                             PlayerErrorCode result = mPlayer.setCurrentSubtitle(availableSubtitlesArray[currentSubtitleIndex]);
                             if (result == PlayerErrorCode.PLAYER_NO_ERROR) {
-                                setCurrentLanguageString += availableSubtitlesArray[currentSubtitleIndex].getDescription();
+                                setCurrentLanguageString += String.valueOf(availableSubtitlesArray[currentSubtitleIndex].getIndex() + 1) + "/" + availableSubtitlesArray[currentSubtitleIndex].getDescription();
                                 if (currentSubtitleIndex >= 0 && currentSubtitleIndex < availableSubtitlesArray.length - 1) {
                                     currentSubtitleIndex++;
                                 } else {
@@ -621,7 +645,6 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
             public void onClick(View v) {
                 if (mBound) {
                     Log.d(TAG, "ShowSubtitles");
-                    mGraphicsLayerDialog = new GraphicsLayerDialog(OpenApiTestAppActivity.this,mPlayer,mHandler); //GraphicsLayerDialog.LayerType.SUBTITLE);
                     mGraphicsLayerDialog.show();
                     setVisibility(View.GONE);
                 } else {
@@ -662,21 +685,17 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
                         Log.d(TAG, "setSpeed");
                         PlayerErrorCode result = mPlayer.setSpeed(mSpeed[mSpeedIndex]);
                         if (result == PlayerErrorCode.PLAYER_NO_ERROR) {
-                            if (mSpeedIndex < mSpeed.length - 1) {
-                                mSpeedIndex++;
-                            } else {
-                                mSpeedIndex = 0;
-                            }
                             String resultTxt;
                             int newSpeed = mPlayer.getSpeed();
-                            if (newSpeed == -1) {
-                                resultTxt = "Error, speed could not be set.";
-                            } else {
-                                resultTxt = String.valueOf(newSpeed);
-                            }
+                            resultTxt = String.valueOf(newSpeed);
                             txtInfo.setText("Set speed: " + resultTxt);
                         } else {
                             txtInfo.setText("Set speed: "+printErrorCode(result));
+                        }
+                        if (mSpeedIndex < mSpeed.length - 1) {
+                            mSpeedIndex++;
+                        } else {
+                            mSpeedIndex = 0;
                         }
                     } else {
                         Log.d(TAG, "Not bound to OpenApi");
@@ -813,6 +832,30 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
                 }
             }
         });
+
+        btnGetPlaneSize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    if (mBound) {
+                        Rect sizePos = mPlayer.getSizePosition();
+
+                        if(sizePos != null){
+                            txtInfo.setText("Video plane rect: size=" + sizePos.width() + "x" + sizePos.height() + " @ (" + sizePos.left + "," + sizePos.top + ")");
+                        }
+                        else{
+                            txtInfo.setText("Error: Could not retrieve video plane dimensions");
+                        }
+
+                    } else {
+                        Log.d(TAG, "Not bound to OpenApi");
+                    }
+                } catch (RemoteException e) {
+                    Log.d(TAG, "RemoteException on getDuration");
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void setVisibility(int visibility) {
@@ -835,6 +878,7 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
         if (mBound) {
             try {
                 mPlayer.stop();
+                //mPlayer1.stop();
             } catch (RemoteException e) {
                 Log.d(TAG, "RemoteException on onStop");
                 e.printStackTrace();
@@ -866,16 +910,48 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
 
     }
 
+    /***
+     * Android L (lollipop, API 21) introduced a new problem when trying to
+     * invoke implicit intent,
+     * "java.lang.IllegalArgumentException: Service Intent must be explicit"
+     */
+    private static Intent createExplicitFromImplicitIntent(Context context, Intent implicitIntent) {
+        // Retrieve all services that can match the given intent
+        PackageManager pm = context.getPackageManager();
+        List<ResolveInfo> resolveInfo = pm.queryIntentServices(implicitIntent, 0);
+
+        // Make sure only one match was found
+        if (resolveInfo == null || resolveInfo.size() != 1) {
+            return null;
+        }
+
+        // Get component info and create ComponentName
+        ResolveInfo serviceInfo = resolveInfo.get(0);
+        String packageName = serviceInfo.serviceInfo.packageName;
+        String className = serviceInfo.serviceInfo.name;
+        ComponentName component = new ComponentName(packageName, className);
+
+        // Create a new intent. Use the old one for extras and such reuse
+        Intent explicitIntent = new Intent(implicitIntent);
+
+        // Set the component to be explicit
+        explicitIntent.setComponent(component);
+
+        return explicitIntent;
+    }
+
 
     private void bindService()
     {
-        Log.d(TAG, "bindService");
-        Intent remoteServiceIntent = new Intent();
-        remoteServiceIntent.setAction("fr.bouyguestelecom.bboxapi.BBOX_SECURED_PLAYER");
-        remoteServiceIntent.putExtra("PACKAGE_NAME",getPackageName());
-        //Intent intent = new Intent(this, OpenApiService.class);
-        // should this flag be Context.BIND_IMPORTANT ???...
-        bindService(remoteServiceIntent, mConnection, Context.BIND_AUTO_CREATE);
+        Intent implicitRemoteServiceIntent = new Intent();
+        implicitRemoteServiceIntent.setAction("fr.bouyguestelecom.bboxapi.BBOX_SECURED_PLAYER");
+        implicitRemoteServiceIntent.putExtra("PACKAGE_NAME",getPackageName());
+
+        Intent explicitRemoteServiceIntent = createExplicitFromImplicitIntent(this, implicitRemoteServiceIntent);
+
+        Log.d(TAG, "Binding to service -> " + explicitRemoteServiceIntent);
+
+        bindService(explicitRemoteServiceIntent, mConnection, Context.BIND_AUTO_CREATE);
     }
 
     private ServiceConnection mConnection = new ServiceConnection() {
@@ -901,7 +977,7 @@ public class OpenApiTestAppActivity extends ActionBarActivity {
                 }
                 mBound = true;
             } catch (RemoteException e) {
-                Log.d(TAG, "RemoteException on onServiceConnected", e);
+                Log.d(TAG, "RemoteException on onServiceConnected");
                 mBound = false;
                 e.printStackTrace();
             }

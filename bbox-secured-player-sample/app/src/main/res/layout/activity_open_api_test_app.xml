@@ -97,6 +97,12 @@
                 android:text="@string/btnGetAvailableSubtitles"/>
 
             <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Get plane size"
+                android:id="@+id/btnGetPlaneSize" />
+
+            <Button
                 android:id="@+id/btnGetCurrentSubtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

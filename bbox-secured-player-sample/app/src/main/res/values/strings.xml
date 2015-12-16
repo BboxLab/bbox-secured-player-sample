@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SecuredPlayerTestApp</string>
-    <string name="btnPlayRtp">Play RTP</string>
     <string name="btnPlayHls">Play HLS</string>
+    <string name="btnPlayRtp">Play RTP</string>
     <string name="btnPlayVod">Play VOD</string>
     <string name="btnPlayMedia">Play MEDIA</string>
     <string name="btnSeek">Seek</string>
