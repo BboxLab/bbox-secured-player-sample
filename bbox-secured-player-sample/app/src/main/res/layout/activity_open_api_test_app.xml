@@ -10,6 +10,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <fr.bouyguestelecom.sample.SubtitleLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:id="@+id/subtitle_Layout"/>
+
     <LinearLayout
         android:layout_alignParentTop="@+id/videoView"
         android:layout_width="fill_parent"
@@ -25,62 +31,203 @@
             android:orientation="horizontal" >
 
             <Button
+                android:id="@+id/btnPlayCanalPlusSD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnPlayCanalPlusSD"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
+            <Button
+                android:id="@+id/btnPlayCanalPlusHD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnPlayCanalPlusHD"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
+            <Button
+                android:id="@+id/btnPlayCanalCinemaSD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnPlayCanalCinemaSD"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
+            <Button
+                android:id="@+id/btnPlayCanalCinemaHD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnPlayCanalCinemaHD"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
+            <Button
+                android:id="@+id/btnPlayTF1HD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnPlayTF1HD"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
+            <Button
+                android:id="@+id/btnPlayM6HD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnPlayM6HD"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
+            <Button
+                android:id="@+id/btnPlayDorcelHD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnPlayDorcelHD"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
+            <Button
+                android:id="@+id/btnPlayXXLHD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnPlayXXLHD"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btnGetProfileRtp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnGetProfileRtp"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
+
+            <Button
                 android:id="@+id/btnPlayRtp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnPlayRtp">
-                <requestFocus />
-            </Button>
+                android:text="@string/btnPlayRtp"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
             <Button
                 android:id="@+id/btnPlayHls"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnPlayHls">
-                <requestFocus />
-            </Button>
+                android:text="@string/btnPlayHls"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
             <Button
                 android:id="@+id/btnPlayVod"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnPlayVod"/>
+                android:text="@string/btnPlayVod"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
             <Button
                 android:id="@+id/btnPlayMedia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnPlayMedia"/>
+                android:text="@string/btnPlayMedia"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
             <Button
                 android:id="@+id/btnSeek"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnSeek"/>
+                android:text="@string/btnSeek"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
             <Button
                 android:id="@+id/btnStop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnStop"/>
+                android:text="@string/btnStop"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
+
+            <Button
+                android:id="@+id/btnMoveResize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnMoveResize"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
             <Button
                 android:id="@+id/btnResize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnResize"/>
+                android:text="@string/btnResize"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
             <Button
                 android:id="@+id/btnMove"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnMove"/>
+                android:text="@string/btnMove"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnPlayRtpAdult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnPlayRtpAdult"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
+
+            <Button
+                android:id="@+id/btnPlayRtpNoRights"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnPlayRtpNoRights"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
+
 
             <Button
                 android:id="@+id/btnUnlockMorality"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnUnlockMorality"/>
+                android:text="@string/btnUnlockMorality"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
         </LinearLayout>
 
@@ -94,31 +241,37 @@
                 android:id="@+id/btnGetAvailableSubtitles"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnGetAvailableSubtitles"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Get plane size"
-                android:id="@+id/btnGetPlaneSize" />
+                android:text="@string/btnGetAvailableSubtitles"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
             <Button
                 android:id="@+id/btnGetCurrentSubtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnGetCurrentSubtitle"/>
+                android:text="@string/btnGetCurrentSubtitle"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
             <Button
                 android:id="@+id/btnSetCurrentSubtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnSetCurrentSubtitle"/>
+                android:text="@string/btnSetCurrentSubtitle"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
             <Button
                 android:id="@+id/btnShowSubtitles"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnShowSubtitles"/>
+                android:text="@string/btnShowSubtitles"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
         </LinearLayout>
 
@@ -132,37 +285,64 @@
                 android:id="@+id/btnGetSpeed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnGetSpeed"/>
+                android:text="@string/btnGetSpeed"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
-            <Button
+            <!--<Button
                 android:id="@+id/btnSetSpeed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnSetSpeed"/>
+                android:text="@string/btnSetSpeed"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>-->
 
             <Button
                 android:id="@+id/btnGetCurrentPosition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnGetCurrentPosition"/>
+                android:text="@string/btnGetCurrentPosition"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
             <Button
                 android:id="@+id/btnGetDuration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnGetDuration"/>
+                android:text="@string/btnGetDuration"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
             <Button
                 android:id="@+id/btnGetUniverse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnGetUniverse"/>
+                android:text="@string/btnGetUniverse"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
             <Button
                 android:id="@+id/btnSetUniverse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnSetUniverse"/>
+                android:text="@string/btnSetUniverse"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
+
+            <Button
+                android:id="@+id/btnGetPlaneSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnGetPanelSize"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
         </LinearLayout>
 
@@ -176,25 +356,62 @@
                 android:id="@+id/btnGetState"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnGetState"/>
+                android:text="@string/btnGetState"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
             <Button
                 android:id="@+id/btnGetAvailableLanguages"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnGetAvailableLanguages"/>
+                android:text="@string/btnGetAvailableLanguages"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
             <Button
                 android:id="@+id/btnGetCurrentLanguage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnGetCurrentLanguage"/>
+                android:text="@string/btnGetCurrentLanguage"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
             <Button
                 android:id="@+id/btnSetCurrentLanguage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnSetCurrentLanguage"/>
+                android:text="@string/btnSetCurrentLanguage"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/editPlayIp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:hint="@string/editPlayIp" />
+
+            <Button
+                android:id="@+id/btnPlayIp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/btnPlayIp"
+                android:background="@drawable/item_selector"
+                android:layout_margin="2dp"
+                android:padding="5dp"/>
 
         </LinearLayout>
 

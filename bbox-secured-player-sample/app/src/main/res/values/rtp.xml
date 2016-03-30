@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="rtp_list">
+        <item>FRANCE 2 SD--rtp://233.136.0.111:65000</item>
+        <item>FRANCE 5 SD--rtp://233.136.0.114:65000</item>
+        <item>ARTE SD--rtp://233.136.0.116:65000</item>
+        <item>D8 SD--rtp://233.136.0.126:65000</item>
+        <item>ARTE HD--rtp://233.49.82.71:7500</item>
+        <item>D8 HD--rtp://233.136.44.165:65000</item>
+        <item>FRANCE24 SD--rtp://233.136.0.107:7500</item>
+        <item>LCI SD--rtp://233.60.197.166:65000</item>
+        <item>LCI FD--rtp://233.49.82.135:7500</item>
+        <item>EURONEWS SD--rtp://233.136.0.128:65000</item>
+        <item>CAP24 SD--rtp://233.32.36.29:7500</item>
+        <item>CAP24 FD--rtp://233.136.44.187:7500</item>
+        <item>PUBLIC_SEN SD--rtp://233.32.36.32:7500</item>
+        <item>LCP24 SD--rtp://233.32.36.172:7500</item>
+        <item>MA_CHAINE SD--rtp://233.32.36.54:7500</item>
+        <item>AFR24 SD--rtp://233.32.36.50:7500</item>
+        <item>CNN SD--rtp://233.136.0.131:65000</item>
+        <item>SKYNEWS SD--rtp://233.136.0.70:7500</item>
+        <item>BLOOMBERG SD--rtp://233.136.0.48:7500</item>
+        <item>FR_24_ENG SD--rtp://233.49.82.94:7500</item>
+    </string-array>
+</resources>

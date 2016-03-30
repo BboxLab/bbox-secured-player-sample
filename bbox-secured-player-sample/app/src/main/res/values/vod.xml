@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="vod_list">
+        <item>byt://IC820843/3955652?type=7&amp;srv=1</item>
+        <item>byt://IC820845/1918161?type=7&amp;srv=1</item>
+        <item>byt://IC820846/1854854?type=7&amp;srv=1</item>
+        <item>byt://IC820848/1855167?type=7&amp;srv=1</item>
+        <item>byt://IC820849/3955370?type=7&amp;srv=1</item>
+        <item>byt://IC820850/3987170?type=7&amp;srv=1</item>
+        <item>byt://IC820851/1913531?type=7&amp;srv=1</item>
+        <item>byt://IC820852/1940421?type=7&amp;srv=1</item>
+        <item>byt://IC820857/4090616?type=7&amp;srv=1</item>
+        <item>byt://IC820859/4092297?type=7&amp;srv=1</item>
+        <item>byt://IC821595/4765084?type=7&amp;srv=1</item>
+        <item>byt://IC821622/4764974?type=7&amp;srv=1</item>
+        <item>byt://IC821633/1938130?type=7&amp;srv=1</item>
+        <item>byt://IC821636/1854283?type=7&amp;srv=1</item>
+    </string-array>
+</resources>
+
+
